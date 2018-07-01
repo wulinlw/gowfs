@@ -162,6 +162,7 @@ func (fs *FileSystem) Append(data io.Reader, p Path, buffersize int) (bool, erro
 	loc := rsp.Header.Get("Location")
 	u, err = url.ParseRequestURI(loc)
 	if err != nil {
+		defer rsp.Body.Close()
 		return false, fmt.Errorf("Append(%s) - did not receive a valid URL from server.", loc)
 	}
 
